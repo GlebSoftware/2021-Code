@@ -5,6 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include "AutoBase.hpp"
+#include "AutoFiveBall.hpp"
+#include "AutoThreeBall.hpp"
 #include "Climber.hpp"
 #include "Drivetrain.hpp"
 #include "Hood.hpp"
@@ -43,6 +46,10 @@ public:
     void FiveBall();
 
 private:
+    friend class AutoThreeBall<Robot>;
+    friend class AutoFiveBall<Robot>;                                         // Repeat this for all Auton Modes
+    std::unique_ptr<AutoBase<Robot>> auton { new AutoFiveBall<Robot>(this) }; // setup active auton
+
     Drivetrain   drivetrain;
     LimeLight    limelight;
     Hood         hood { limelight };
